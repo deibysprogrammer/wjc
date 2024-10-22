@@ -1,0 +1,314 @@
+    Fase 1 funcion.
+
+    const wbc = ({ x = 0, y = 0, z = 0 }) => {
+    // Suponemos 2 cosas
+    // 1. z no es mayor que el numero mayor entre x y y.
+    // 2. z debe medirse en una sola botella, al conseguir el valor, el algoritmo debe detenerse.
+
+    // CASE 0: base cases
+    // CASE 0.1: base
+    if (z === x) {
+      console.log(`Resolved in 1, taking ${x / z} step`);
+    } else if (z === y) {
+      // CASE 0.2: base
+      console.log(`Resolved in 2, taking ${y / z} step`);
+    } else if (x < y) {
+      // TODO: caso contrario y < x !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // first path
+      if (z < x) {
+        // CASE 1: first case
+        if (y % x === z) {
+          console.log(`Resolved in 3, taking ${(y - z) / x} steps`);
+        } else {
+          console.log("there's no solution");
+        }
+      } else if (x < z && z < y) {
+        // CASE 2: second case
+        if (z % x === 0) {
+          // CASE 2.1: second case, first subcase
+          console.log(`Resolved in 4, taking ${z / x} steps`);
+        } else if ((y - z) % x === 0) {
+          // CASE 2.2: second case, second subcase
+          console.log(`Resolved in 5, taking ${(y - z) / x} steps`);
+
+          if (z % x === 0 && (y - z) % x === 0) {
+            // CASE 2.3: second case, third subcase
+            console.log(
+              `Resolved in 6, you get 2 paths, one path ${
+                z / x
+              } step(s) and two path ${(y - z) / x} step(s)`
+            );
+          }
+        } else {
+          console.log("there's no solution");
+        }
+      } else {
+        console.log("there's no solution");
+      }
+    }
+  };
+
+
+  Fase 2
+
+  const wbc = ({ x = 0, y = 0, z = 0 }) => {
+    // Suponemos 2 cosas
+    // 1. z no es mayor que el numero mayor entre x y y.
+    // 2. z debe medirse en una sola botella, al conseguir el valor, el algoritmo debe detenerse.
+
+    // CASE 0: base cases
+    // CASE 0.1: base
+    if (z === x) {
+      console.log(`Resolved in 1, taking ${x / z} step`);
+    } else if (z === y) {
+      // CASE 0.2: base
+      console.log(`Resolved in 2, taking ${y / z} step`);
+    } else if (x < y) {
+      // TODO: caso contrario y < x !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // first path
+      if (z < x) {
+        // CASE 1: first case
+        if (y % x === z) {
+          console.log(`Resolved in 3, taking ${(y - z) / x} steps`);
+        } else {
+          let auxy = y;
+          let i = 0;
+          do {
+            i++;
+            let aux = x - (auxy % x);
+            auxy = y - aux;
+            console.log(auxy);
+            console.log(`${y - auxy - x !== 0 && auxy % x !== z} --- ${i}`);
+          } while (y - auxy - x !== 0 && auxy % x !== z);
+
+          if (auxy % x === z) {
+            console.log("Resolved in 3.1");
+          }
+          console.log("there's no solution");
+        }
+      } else if (x < z && z < y) {
+        // CASE 2: second case
+        if (z % x === 0) {
+          // CASE 2.1: second case, first subcase
+          console.log(`Resolved in 4, taking ${z / x} steps`);
+        } else if ((y - z) % x === 0) {
+          // CASE 2.2: second case, second subcase
+          console.log(`Resolved in 5, taking ${(y - z) / x} steps`);
+        } else {
+          console.log("there's no solution");
+        }
+        if (z % x === 0 && (y - z) % x === 0) {
+          // CASE 2.3: second case, third subcase
+          console.log(
+            `Resolved in 6, you get 2 paths, one path ${
+              z / x
+            } step(s) and two path ${(y - z) / x} step(s)`
+          );
+        }
+        let auxy = y;
+        let i = 0;
+        do {
+          i++;
+          let aux = x - (auxy % x);
+          auxy = y - aux;
+          console.log(auxy);
+          console.log(
+            `${y - auxy - x !== 0 && (auxy - z) % x !== 0} --- ${
+              (auxy - z) / x
+            } hola`
+          );
+        } while (y - auxy - x !== 0 && (auxy - z) % x !== 0);
+
+        if ((auxy - z) % x === 0) {
+          console.log("Resolved in 3.1");
+        }
+        console.log("there's no solution");
+      } else {
+        console.log("there's no solution");
+      }
+    }
+  };
+
+  Fase 3
+
+  import "./App.css";
+import { useState } from "react";
+
+function App() {
+  const [formBottles, setFormBottles] = useState({
+    x: 0,
+    y: 0,
+    z: 0,
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    wjc(formBottles);
+  };
+
+  const wjc = ({ x = 0, y = 0, z = 0 }) => {
+    let auxlesser = 0;
+    let auxGreater = 0;
+    let cont = 0;
+    let pasos = [];
+
+    let operaciones = [
+      "llenar x",
+      "llenar y",
+      "vaciar x",
+      "vaciar y",
+      "transferir de y a x",
+      "transferir de x a y",
+    ];
+
+    // Paso 0: Calculamos los casos base:
+    if (x === z) {
+      console.log("caso base x = z, un paso"); // dar solucion----------------------------------------
+      pasos.push({ paso: 1, descripcion: "" });
+    } else if (y === z) {
+      console.log("caso base y = z, un paso"); // dar solucion----------------------------------------
+    } else {
+      if (x < y) {
+        auxlesser = x;
+        auxGreater = y;
+      } else {
+        auxlesser = y;
+        auxGreater = x;
+      }
+
+      if (z < auxlesser) {
+        if (y % x === z) {
+          cont++;
+          cont += Math.floor(auxGreater / auxlesser) * 2 - 1;
+          console.log(`Caso 1 y % x === z, (${cont}) pasos`); // dar solucion------------------
+        } else {
+          let aux1 = auxGreater;
+
+          console.log("--- CASO DE FUERZA BRUTA 1.2 ---");
+          cont++;
+          cont += Math.floor(aux1 / auxlesser) * 2 + 4;
+          do {
+            let aux2 = auxlesser - (aux1 % auxlesser);
+            aux1 = auxGreater - aux2;
+            console.log(
+              `Si ves un 0 aqui: ${
+                auxGreater - aux1 - auxlesser
+              }... No hay solucion ${aux1} ${cont}`
+            );
+            cont += Math.floor(aux1 / auxlesser) * 2 + 4;
+          } while (
+            auxGreater - aux1 - auxlesser !== 0 &&
+            aux1 % auxlesser !== z
+          );
+
+          if (aux1 % auxlesser === z) {
+            cont -= 5;
+            console.log(`Eta es la solucion: ${cont} ;)`); // dar solucion------------------
+          } else {
+            console.log("No hay solucion");
+          }
+        }
+      } else if (z < auxGreater) {
+        if (z % auxlesser === 0 && (auxGreater - z) % auxlesser === 0) {
+          console.log(
+            `Caso 2.1, de existir los casos 2.2 (${z / auxlesser}) y 2.3 (${
+              ((auxGreater - z) / auxlesser) * 2
+            }), decidir por el mas pequeño.`
+          ); // dar solucion-----------------------------------------------------------------
+        } else if (z % auxlesser === 0) {
+          console.log(
+            `Caso 2.2 z % auxlesser === 0, (${(z / auxlesser) * 2}) pasos` // dar solucion--
+          );
+        } else if ((auxGreater - z) % auxlesser === 0) {
+          console.log(
+            `Caso 2.3 (auxGreater - z) % auxlesser, (${
+              ((auxGreater - z) / auxlesser) * 2
+            }) pasos` // dar solucion---------------------------------------------------------
+          );
+        } else {
+          let aux1 = auxGreater;
+
+          console.log("--- CASO DE FUERZA BRUTA 2.4 ---");
+          cont++;
+          do {
+            cont += Math.floor(aux1 / auxlesser) * 2 + 4;
+
+            let aux2 = auxlesser - (aux1 % auxlesser);
+            aux1 = auxGreater - aux2;
+            console.log(
+              `Si ves un 0 aqui: ${
+                auxGreater - aux1 - auxlesser
+              }... No hay solucion`
+            );
+          } while (
+            auxGreater - aux1 - auxlesser !== 0 &&
+            (aux1 - z) % auxlesser !== 0
+          );
+          if ((aux1 - z) % auxlesser === 0) {
+            cont += Math.floor((aux1 - z) / auxlesser) * 2 - 1;
+            console.log(`Eta es la solucion: ${cont} ;)`); // dar solucion------------------
+          } else {
+            console.log("No hay solucion");
+          }
+        }
+      } else {
+        console.log("there's no solution!!!");
+      }
+    }
+  };
+
+  return (
+    <div className="container">
+      <h1 className="h1">Water bucket challenge 2024</h1>
+
+      <form onSubmit={handleSubmit} className="data">
+        {/* input */}
+        <div className="request">
+          <label htmlFor="x" className="label">
+            Bottle X
+          </label>
+          <input
+            value={formBottles.x}
+            onChange={(e) =>
+              setFormBottles({ ...formBottles, x: parseInt(e.target.value) })
+            }
+            type="number"
+            className="input"
+          />
+        </div>
+        {/* input */}
+        <div className="request">
+          <label htmlFor="y" className="label">
+            Bottle Y
+          </label>
+          <input
+            value={formBottles.y}
+            onChange={(e) =>
+              setFormBottles({ ...formBottles, y: parseInt(e.target.value) })
+            }
+            type="number"
+            className="input"
+          />
+        </div>
+        {/* input */}
+        <div className="request">
+          <label className="label">Bottle Z</label>
+          <input
+            value={formBottles.z}
+            onChange={(e) =>
+              setFormBottles({ ...formBottles, z: parseInt(e.target.value) })
+            }
+            type="number"
+            className="input"
+          />
+        </div>
+
+        <button type="submit" className="button">
+          RESULT
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default App;
