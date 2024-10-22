@@ -16,6 +16,10 @@ NOTE: If port 3000 is busy, check the console to confirm which port it was serve
 
 ---
 
+Explicacion
+
+---
+
 Español:
 
 El algoritmo diseñado estudia 3 casos para la resolución del problema:
@@ -69,6 +73,10 @@ Caso 3.4: Casos de fuerza bruta subiendo y bajando hasta conseguir el camino mas
 NOTA: Al igual que en el caso 2.2 tenemos las mismas condiciones para detener el algoritmo de un bucle infinito.
 
 Si en estos casos no existe una solución retorna null.
+
+---
+
+Explication
 
 ---
 
