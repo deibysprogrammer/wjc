@@ -70,6 +70,8 @@ NOTA: Al igual que en el caso 2.2 tenemos las mismas condiciones para detener el
 
 Si en estos casos no existe una solución retorna null.
 
+---
+
 English:
 
 The designed algorithm studies 3 cases to solve the problem:
